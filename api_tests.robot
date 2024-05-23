@@ -71,5 +71,4 @@ POST_Create_User
 
     ##${expected_keys}=    Create List    name    job    id    createdAt
     ##${expected_string}=    Set Variable    ${expected_keys[0]}, ${expected_keys[1]}, ${expected_keys[2]}, ${expected_keys[3]}; 
-
     ##Should Be Equal As Strings    ${response.content}    ${expected_string}
