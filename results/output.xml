@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.2 on win32)" generated="2024-05-23T20:01:07.844936" rpa="false" schemaversion="5">
+<suite id="s1" name="RF" source="C:\Users\Verčimák Marcel\Documents\WORK\Moxymind RF\RF">
+<suite id="s1-s1" name="Api Tests" source="C:\Users\Verčimák Marcel\Documents\WORK\Moxymind RF\RF\api_tests.robot">
+<test id="s1-s1-t1" name="POST_Create_User" line="47">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.162225" level="INFO">${body} = {'name': 'morpheus', 'job': 'leader'}</msg>
+<var>${body}</var>
+<arg>name=morpheus</arg>
+<arg>job=leader</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.161224" elapsed="0.001001"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-05-23T20:01:08.351052" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.32.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '37', 'Content-Type': 'application/json'} 
+ body=b'{"name": "morpheus", "job": "leader"}' 
+ </msg>
+<msg time="2024-05-23T20:01:08.351052" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Thu, 23 May 2024 18:01:08 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '84', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1716487268&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7DQutar3fMxDIuCrXQQmX502BdJL4eSTLOBzDHf5bu8%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1716487268&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7DQutar3fMxDIuCrXQQmX502BdJL4eSTLOBzDHf5bu8%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"54-8hDtsxM+5/8+GjQv0uiGczhFKws"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '8886f3130f93c259-VIE'} 
+ body={"name":"morpheus","job":"leader","id":"601","createdAt":"2024-05-23T18:01:08.395Z"} 
+ </msg>
+<msg time="2024-05-23T20:01:08.352054" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${main_URL}/api/users</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.162225" elapsed="0.189829"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.353055" level="INFO">Status code: 201</msg>
+<arg>Status code: ${response.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.352054" elapsed="0.001001"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.353055" level="INFO">Response: {"name":"morpheus","job":"leader","id":"601","createdAt":"2024-05-23T18:01:08.395Z"}</msg>
+<arg>Response: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.353055" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.354056" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.354056" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.355056" level="INFO">${response_json} = {'name': 'morpheus', 'job': 'leader', 'id': '601', 'createdAt': '2024-05-23T18:01:08.395Z'}</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.354056" elapsed="0.001000"/>
+</kw>
+<kw name="Get Dictionary Keys" owner="Collections">
+<msg time="2024-05-23T20:01:08.355056" level="INFO">${response_keys} = ['createdAt', 'id', 'job', 'name']</msg>
+<var>${response_keys}</var>
+<arg>${response_json}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.355056" elapsed="0.000000"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2024-05-23T20:01:08.356058" level="INFO">${expected_keys} = ['name', 'job', 'id', 'createdAt']</msg>
+<var>${expected_keys}</var>
+<arg>name</arg>
+<arg>job</arg>
+<arg>id</arg>
+<arg>createdAt</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.356058" elapsed="0.000000"/>
+</kw>
+<kw name="Sort List" owner="Collections">
+<msg time="2024-05-23T20:01:08.356058" level="INFO">${response_keys} = None</msg>
+<var>${response_keys}</var>
+<arg>${response_keys}</arg>
+<doc>Sorts the given list in place.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.356058" elapsed="0.000000"/>
+</kw>
+<kw name="Sort List" owner="Collections">
+<msg time="2024-05-23T20:01:08.357059" level="INFO">${expected_keys} = None</msg>
+<var>${expected_keys}</var>
+<arg>${expected_keys}</arg>
+<doc>Sorts the given list in place.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.357059" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response_keys}</arg>
+<arg>${expected_keys}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-05-23T20:01:08.357059" elapsed="0.000000"/>
+</kw>
+<doc>Positive POST</doc>
+<status status="PASS" start="2024-05-23T20:01:08.161224" elapsed="0.195835"/>
+</test>
+<status status="PASS" start="2024-05-23T20:01:07.861952" elapsed="0.496108"/>
+</suite>
+<status status="PASS" start="2024-05-23T20:01:07.847939" elapsed="0.511122"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="RF">RF</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Api Tests">RF.Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
